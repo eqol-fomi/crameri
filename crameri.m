@@ -124,7 +124,7 @@ end
 %% Load RGB values and interpolate to NLevels: 
 
 try
-   S = load('CrameriColourMaps7.0.mat',ColormapName); 
+   S = load('CrameriColourMaps8.01.mat',ColormapName); 
    cmap = S.(ColormapName); 
 catch
    error(['Unknown colormap name ''',ColormapName,'''. Try typing crameri with no inputs to check the options and try again.'])
@@ -144,9 +144,9 @@ end
 %% Adjust values to current caxis limits? 
 
 if autopivot
-   clim = caxis; 
-   maxval = max(abs(clim-PivotValue)); 
-   cmap = interp1(linspace(-maxval,maxval,size(cmap,1))+PivotValue, cmap, linspace(clim(1),clim(2),size(cmap,1)),'linear');
+   colorlim = clim; 
+   maxval = max(abs(colorlim-PivotValue)); 
+   cmap = interp1(linspace(-maxval,maxval,size(cmap,1))+PivotValue, cmap, linspace(colorlim(1),colorlim(2),size(cmap,1)),'linear');
 end
 
 %% Clean up 
@@ -171,3 +171,17 @@ end
 % 
 % clear f k 
 % save('CrameriColourMaps7.0.mat')
+
+% clear
+% 
+% dir_temp=dir("*\*.mat");
+% N_temp=size(dir_temp,1);
+% 
+% for i_temp=1:N_temp
+%     fpath_temp=[dir_temp(i_temp).folder,'\',dir_temp(i_temp).name];
+%     load(fpath_temp);
+% end
+% 
+% clear *_temp
+% 
+% save('CrameriColourMaps8.01.mat');
